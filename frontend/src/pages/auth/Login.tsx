@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Building2, CheckCircle2, ShieldCheck, ArrowRight, Wallet, Users } from 'lucide-react';
+import { CheckCircle2, ShieldCheck, Wallet, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -176,7 +176,7 @@ export default function Login() {
             <p className="text-muted-foreground">Sign in to your enterprise account to continue</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email" className="font-medium text-foreground">Work Email</Label>
