@@ -15,8 +15,19 @@ import LeaveManagement from './pages/leave/LeaveManagement';
 import Attendance from './pages/attendance/Attendance';
 import Payroll from './pages/payroll/Payroll';
 import Reports from './pages/reports/Reports';
+import { useAuthStore } from './store/useAuthStore';
 
 const queryClient = new QueryClient();
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <>{children}</>;
+}
 
 function App() {
   return (
@@ -27,7 +38,11 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* Protected Routes inside AppLayout */}
-          <Route path="/" element={<AppLayout />}>
+          <Route path="/" element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }>
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Directory />} />

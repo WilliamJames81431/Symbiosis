@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { Building2, CheckCircle2, ShieldCheck, ArrowRight, Wallet, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
-import { CheckCircle2, ShieldCheck, Users, Wallet } from 'lucide-react';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const stats = [
   { icon: Users, label: "Employees Managed", value: "2M+" },
@@ -13,16 +14,19 @@ const stats = [
 ];
 
 export default function Login() {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuthStore();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setIsLoading(true);
+    // Simulate network delay
     setTimeout(() => {
       setIsLoading(false);
+      login(); // Sets isAuthenticated to true
       navigate('/dashboard');
-    }, 1200);
+    }, 1500);
   };
 
   return (
@@ -182,7 +186,7 @@ export default function Login() {
             </div>
           </div>
 
-          <Button variant="outline" type="button" className="w-full h-11 font-medium bg-transparent hover:bg-muted/50 transition-colors gap-2">
+          <Button onClick={() => handleLogin()} variant="outline" type="button" className="w-full h-11 font-medium bg-transparent hover:bg-muted/50 transition-colors gap-2">
             <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -204,7 +208,7 @@ export default function Login() {
             Sign in with Google
           </Button>
           
-          <Button variant="ghost" type="button" className="w-full h-11 font-medium hover:bg-muted/50 transition-colors mt-2">
+          <Button onClick={() => handleLogin()} variant="ghost" type="button" className="w-full h-11 font-medium hover:bg-muted/50 transition-colors mt-2">
             Continue with Magic Link
           </Button>
           

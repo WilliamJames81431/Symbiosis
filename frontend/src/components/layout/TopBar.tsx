@@ -9,8 +9,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export default function TopBar() {
+  const { logout } = useAuthStore();
+
   return (
     <header className="flex h-16 items-center justify-between border-b border-border/40 bg-background/80 backdrop-blur-xl px-4 md:px-6 z-10 sticky top-0 supports-[backdrop-filter]:bg-background/60 shadow-sm shadow-black/5 dark:shadow-black/20">
       <div className="flex items-center flex-1 gap-4">
@@ -63,7 +66,7 @@ export default function TopBar() {
             <DropdownMenuItem className="cursor-pointer">Profile Settings</DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer">Theme Preferences</DropdownMenuItem>
             <DropdownMenuSeparator className="bg-border/50" />
-            <DropdownMenuItem className="text-destructive focus:text-destructive focus:bg-destructive/10 cursor-pointer font-medium">
+            <DropdownMenuItem onClick={() => logout()} className="text-destructive focus:text-destructive focus:bg-destructive/10 cursor-pointer font-medium">
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
