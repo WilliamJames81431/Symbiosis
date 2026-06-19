@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore, Role } from '@/store/useAuthStore';
 
 const stats = [
   { icon: Users, label: "Employees Managed", value: "2M+" },
@@ -15,8 +15,9 @@ const stats = [
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<Role>('Admin');
   const navigate = useNavigate();
-  const { login } = useAuthStore();
+  const { login, setRole } = useAuthStore();
 
   const handleLogin = (e?: React.FormEvent, isGoogle = false) => {
     if (e) e.preventDefault();
@@ -55,6 +56,7 @@ export default function Login() {
       setTimeout(() => {
         if (popup) popup.close();
         setIsLoading(false);
+        setRole(selectedRole);
         login();
         navigate('/dashboard');
       }, 2000);
@@ -64,6 +66,7 @@ export default function Login() {
     // Standard Magic Link delay
     setTimeout(() => {
       setIsLoading(false);
+      setRole(selectedRole);
       login(); // Sets isAuthenticated to true
       navigate('/dashboard');
     }, 1500);
@@ -178,6 +181,22 @@ export default function Login() {
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-4">
+              <div className="space-y-2">
+                <Label className="font-medium text-foreground">Select Prototype Role</Label>
+                <div className="flex bg-muted/50 p-1 rounded-lg border border-border/50">
+                  {(['Admin', 'HR', 'Employee'] as const).map(role => (
+                    <button
+                      key={role}
+                      type="button"
+                      onClick={() => setSelectedRole(role)}
+                      className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${selectedRole === role ? 'bg-background shadow-sm text-foreground scale-100 ring-1 ring-border/50' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}`}
+                    >
+                      {role}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email" className="font-medium text-foreground">Work Email</Label>
                 <Input 
