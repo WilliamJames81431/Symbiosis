@@ -46,14 +46,20 @@ function App() {
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<Directory />} />
-            <Route path="profile" element={<PlaceholderPage title="My Profile" />} />
+            <Route path="locations" element={<PlaceholderPage title="Locations" />} />
             <Route path="attendance" element={<Attendance />} />
-            <Route path="leave" element={<LeaveManagement />} />
             <Route path="payroll" element={<Payroll />} />
-            <Route path="payslips" element={<PlaceholderPage title="My Payslips" />} />
+            <Route path="bank-transfer" element={<PlaceholderPage title="Bank Transfer" />} />
             <Route path="statutory" element={<PlaceholderPage title="Statutory Compliance" />} />
+            <Route path="wages" element={<PlaceholderPage title="Wages" />} />
+            <Route path="leave" element={<LeaveManagement />} />
             <Route path="reports" element={<Reports />} />
             <Route path="settings" element={<Settings />} />
+
+            {/* Employee Specific Routes */}
+            <Route path="payslips" element={<PlaceholderPage title="My Payslips" />} />
+            <Route path="my-leaves" element={<PlaceholderPage title="My Leaves" />} />
+            <Route path="profile" element={<PlaceholderPage title="My Profile" />} />
           </Route>
         </Routes>
       </BrowserRouter>

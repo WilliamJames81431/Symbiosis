@@ -1,20 +1,28 @@
 import { Link, useLocation } from 'react-router';
-import { LayoutDashboard, Users, Clock, Calendar, Wallet, Settings, ShieldAlert, FileText } from 'lucide-react';
+import { LayoutDashboard, Users, Clock, Calendar, Wallet, Settings, ShieldAlert, FileText, MapPin, Landmark, CircleDollarSign, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '@/store/useAuthStore';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['Admin', 'HR', 'Employee'] },
-  { name: 'Directory', href: '/employees', icon: Users, roles: ['Admin', 'HR'] },
-  { name: 'My Profile', href: '/profile', icon: Users, roles: ['Employee'] },
-  { name: 'Attendance', href: '/attendance', icon: Clock, roles: ['Admin', 'HR', 'Employee'] },
-  { name: 'Leave', href: '/leave', icon: Calendar, roles: ['Admin', 'HR', 'Employee'] },
+  // Employer / Admin / HR Routes
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['Admin', 'HR'] },
+  { name: 'Employees', href: '/employees', icon: Users, roles: ['Admin', 'HR'] },
+  { name: 'Locations', href: '/locations', icon: MapPin, roles: ['Admin', 'HR'] },
+  { name: 'Attendance', href: '/attendance', icon: Clock, roles: ['Admin', 'HR'] },
   { name: 'Payroll', href: '/payroll', icon: Wallet, roles: ['Admin', 'HR'] },
-  { name: 'My Payslips', href: '/payslips', icon: Wallet, roles: ['Employee'] },
+  { name: 'Bank Transfer', href: '/bank-transfer', icon: Landmark, roles: ['Admin', 'HR'] },
   { name: 'Statutory', href: '/statutory', icon: ShieldAlert, roles: ['Admin', 'HR'] },
+  { name: 'Wages', href: '/wages', icon: CircleDollarSign, roles: ['Admin', 'HR'] },
+  { name: 'Leaves', href: '/leave', icon: Calendar, roles: ['Admin', 'HR'] },
   { name: 'Reports', href: '/reports', icon: FileText, roles: ['Admin', 'HR'] },
   { name: 'Settings', href: '/settings', icon: Settings, roles: ['Admin'] },
+
+  // Employee Self-Service Routes
+  { name: 'My Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['Employee'] },
+  { name: 'My Payslips', href: '/payslips', icon: Wallet, roles: ['Employee'] },
+  { name: 'My Leaves', href: '/my-leaves', icon: Calendar, roles: ['Employee'] },
+  { name: 'My Profile', href: '/profile', icon: User, roles: ['Employee'] },
 ];
 
 export default function Sidebar() {
